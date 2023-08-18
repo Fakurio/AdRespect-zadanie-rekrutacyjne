@@ -28,12 +28,17 @@ document.addEventListener("DOMContentLoaded", () => {
       fitWidth: true,
     });
 
-    masonry.on("layoutComplete", () => {
-      masonryOverlay.style.height = `${grid.offsetHeight * 0.3}px`;
-      portfolioGallery.style.height = `${grid.offsetHeight * 0.3}px`;
+    let flag = true;
+    document.addEventListener("lazyloaded", () => {
+      masonry.layout();
+      if (flag) {
+        masonryOverlay.style.height = "500px";
+        portfolioGallery.style.height = "500px";
+        flag = false;
+      }
     });
 
-    masonry.layout();
+    lazySizes.init();
   });
 });
 
@@ -43,7 +48,7 @@ const extendGallery = () => {
   extendGalleryButton.style.bottom = "-30px";
   extendGalleryButton.firstElementChild.textContent = "Zwiń";
   extendGalleryButton.lastElementChild.setAttribute("transform", "rotate(180)");
-  masonryOverlay.style.height = "400px";
+  masonryOverlay.style.height = "auto";
   masonryOverlay.style.bottom = "0";
   portfolioGallery.style.height = "auto";
   portfolioGallery.style.overflow = "visible";
